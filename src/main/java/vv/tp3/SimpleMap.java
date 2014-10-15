@@ -1,6 +1,6 @@
 package vv.tp3;
 
-import vv.tp3.factory.Doublet;
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
 
@@ -45,8 +45,9 @@ public class SimpleMap<K,V> implements Map<K,V> {
     public V put(K key, V value){
         V before;
         if(k.contains(key)){
-            k.add(k.indexOf(key),key);
+            k.set(k.indexOf(key),key);
             before = v.get(k.indexOf(key));
+            v.remove(k.indexOf(key));
             v.add(k.indexOf(key),value);
             return before;
         }
@@ -61,7 +62,7 @@ public class SimpleMap<K,V> implements Map<K,V> {
         if(k.contains(key)){
             before = get(key);
             v.remove(k.indexOf(key));
-            k.remove(k.indexOf(key));
+            k.remove(key);
             return before;
         }
         return null;
@@ -69,26 +70,44 @@ public class SimpleMap<K,V> implements Map<K,V> {
 
     @Override
     public void putAll(Map<? extends K, ? extends V> m) {
-
+        for(K key: m.keySet()){
+            put(key, m.get(key));
+        }
     }
 
     @Override
     public void clear() {
-
+        k.clear();
+        v.clear();
     }
 
     @Override
     public Set<K> keySet() {
-        return null;
+
+        return new HashSet<K>(k);
     }
 
     @Override
     public Collection<V> values() {
-        return null;
+        return new ArrayList<V>(v);
     }
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        return null;
+        throw new NotImplementedException();
+    }
+
+    public boolean equals(Object o){
+        if(o instanceof SimpleMap){
+            SimpleMap map = (SimpleMap) o;
+            if(v.equals(map.v) && k.equals(map.k)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int hashCode(){
+        return k.hashCode()+v.hashCode();
     }
 }
