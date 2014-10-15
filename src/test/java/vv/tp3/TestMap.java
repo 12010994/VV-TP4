@@ -40,7 +40,6 @@ public class TestMap<K, V> {
     @Test
     public void testSize() {
         assertEquals(map.size(),0);
-
         map.put("1",1);
         assertEquals(map.size(),1);
 

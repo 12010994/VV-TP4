@@ -6,16 +6,13 @@ import java.util.*;
 
 public class SimpleMap<K,V> implements Map<K,V> {
 
-    List<K> k;
-    List<V> v;
+    public List<K> k;
+    public List<V> v;
 
     public SimpleMap(){
         k = new ArrayList<K>();
         v = new ArrayList<V>();
     }
-
-
-
 
     @Override
     public int size() {
@@ -24,17 +21,17 @@ public class SimpleMap<K,V> implements Map<K,V> {
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return k.isEmpty();
     }
 
     @Override
     public boolean containsKey(Object key) {
-        return false;
+        return k.contains(key);
     }
 
     @Override
     public boolean containsValue(Object value) {
-        return false;
+        return v.contains(value);
     }
 
     @Override
@@ -60,6 +57,13 @@ public class SimpleMap<K,V> implements Map<K,V> {
 
     @Override
     public V remove(Object key) {
+        V before;
+        if(k.contains(key)){
+            before = get(key);
+            v.remove(k.indexOf(key));
+            k.remove(k.indexOf(key));
+            return before;
+        }
         return null;
     }
 
