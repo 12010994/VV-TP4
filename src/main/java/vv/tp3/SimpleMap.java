@@ -39,7 +39,9 @@ public class SimpleMap<K,V> implements Map<K,V> {
 
     @Override
     public V get(Object key) {
-        return v.get(k.indexOf(key));
+        if (k.contains(key))
+            return v.get(k.indexOf(key));
+        return null;
     }
 
     @Override
